@@ -8,8 +8,8 @@ def extract():
         for line in data:
             data_json = json.loads(line)
             if data_json['title'] == 'イギリス':
-                return data_json['text']
+                return data_json['text'].split('\n')
 
-for line in extract().split('\n\n'):
+for line in extract():
     if 'Category' in line:
         print(line)

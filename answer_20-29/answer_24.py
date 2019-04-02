@@ -12,6 +12,6 @@ def extract():
                 return data_json['text'].split('\n')
 
 for line in extract():
-    c_line = re.search("^\[\[Category:(.*?)(|\|.*)\]\]$", line)
-    if c_line is not None:
-        print(c_line.group(1))
+    file_line = re.search(u"(File|ファイル):(.*?)\|", line)
+    if file_line is not None:
+        print(file_line.group(2))

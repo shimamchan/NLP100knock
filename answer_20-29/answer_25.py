@@ -3,6 +3,7 @@ import json
 import re
 
 file = 'jawiki-country.json.gz'
+dic = {}
 
 def extract():
     with gzip.open(file, 'rt') as data:
@@ -12,6 +13,9 @@ def extract():
                 return data_json['text'].split('\n')
 
 for line in extract():
-    c_line = re.search("^\[\[Category:(.*?)(|\|.*)\]\]$", line)
-    if c_line is not None:
-        print(c_line.group(1))
+    temp_line = re.search("^(.*?)\s=\s(.*)", line, re.S)
+    if temp_line is not None:
+        dic[temp_line.group(1)] = temp_line.group(2)
+
+for k, v in sorted(dic.items(), key=lambda x: x[1]):
+    print(k, v)

@@ -12,6 +12,6 @@ def extract():
                 return data_json['text'].split('\n')
 
 for line in extract():
-    c_line = re.search("^\[\[Category:(.*?)(|\|.*)\]\]$", line)
-    if c_line is not None:
-        print(c_line.group(1))
+    section_line = re.search("^(=+)\s*(.*?)\s*(=+)$", line)
+    if section_line is not None:
+        print(section_line.group(2), len(section_line.group(1)) - 1)
