@@ -12,22 +12,23 @@ def parse_neko():
 
 
 def neco_lines():
-    morphemes = []
-    for line in _f:
+    with open(_f) as out_file:
+        morphemes = []
+        for line in out_file:
 
-        cols = line.split('\t')
-        if(len(cols) < 2):
-            raise StopIteration
-        res_cols = cols[1].split(',')
+            cols = line.split('\t')
+            if(len(cols) < 2):
+                return
+            res_cols = cols[1].split(',')
 
-        morpheme = {
-            'surface': cols[0],
-            'base': res_cols[6],
-            'pos': res_cols[0],
-            'pos1': res_cols[1]
-        }
-        morphemes.append(morpheme)
+            morpheme = {
+                'surface': cols[0],
+                'base': res_cols[6],
+                'pos': res_cols[0],
+                'pos1': res_cols[1]
+            }
+            morphemes.append(morpheme)
 
-        if res_cols[1] == '句点':
-            yield morphemes
-            morphemes = []
+            if res_cols[1] == '句点':
+                yield morphemes
+                morphemes = []
